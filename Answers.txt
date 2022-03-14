@@ -1,0 +1,33 @@
+1)So first off, time complexity.
+    The different variables are as follows:
+        N = the number of files created - depends heavily on how many rows the original sheet has and how many rows per file the user requires
+        M = number of columns in the sheet
+        P = number of rows in the sheet
+    So, the first loop is for creating files and has a time complexity of O(N) and then we have to populate the header of
+    the csv which will have to run N*M times (O(N*M)).
+    We then get to the real main loop of the conversion logic which will run until it gets to the final row of the sheet which, in the worst case, runs for O(P) since it wont ever run fully
+    more than once. It just saves its position so it can make a new file when it reaches the end of the current max rows per file.
+    The aforementioned loop contains a loop that goes through each column in the current row, so that would run for O(M*P) or if the number of columns equals the number of
+    rows it could be O(P^2).
+  Space complexity: 
+    The space complexity would be mostly dependent on how long a row is, because thats the biggest thing that would be stored during conversion.
+    So the complexity would be O(N)
+
+    
+
+2)I have assumed that the format for the data wont change and number of columns wont change. At least for my function that checks the validity of a cell. I also assumed that any
+    type of input would be some sort of table structure.
+3)I made an abstract Converter class so that in the future one could implement different types of converters. the .xlsx converter is a child that a developer could easily implement a 
+    child of that class to convert xlsx files into any format they please.
+    The xlsx abstract converter class requires an ExcelWorksheet and implementation of the check_cell function.
+    The Converter class, from which the xlsx converter is derived, contains rows and column variables since it is assumed that most converters will be converting table-like
+    data structures. It also requires its children to implement convert(int row_per_file, string[] headers, string delimiter)
+    These all seemed like things that every converter of this type would need to use so putting them in the abstract class ensures developers making new converters
+    cannot forget to implement them as they will be required.
+4)If we are given a database rather than an xlsx file then we could easily make a new class for databases by creating a child of the Converter class in the same way we did with
+    the .xslx converter classes. As far as the logic goes, I believe it would be approximately the same logic we used for an xlsx to a csv, since a database is typically a big table.
+5)I believe my program would be able to handle any amount of products because I am not storing each one after I am done evaluating its eligibility to be added into the csv.
+    So, for each line in the table I temporarily store the row contents then right after I have comitted the new row, to either the error xlsx or the current csv, I clear that List of objects.
+    This would cause there to be about 1000 csv files but since its a plaintext file, I wouldn't expect it to be a huge memory issue.
+    I tripled the size of the given sheet by just duplicating the rows and didnt have any issue there. I also make sure to close any streams that might be open so that im not creating a ton
+    of streams and taking up memory. Overall, I believe the program will act the same at pretty much any size given.

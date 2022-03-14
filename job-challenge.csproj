@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net48</TargetFramework>
+		<RootNamespace>Kpaul_challenge</RootNamespace>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="EPPlus" Version="5.8.2"/>
+		<PackageReference Include="System.IO.FileSystem" Version="4.3.0"/>
+		<PackageReference Include="System.IO" Version="4.3.0"/>
+		<PackageReference Include="ExcelPackage" Version="1.0.0"/>
+		<PackageReference Include="ExcelLibrary" Version="1.2011.7.31"/>
+		<PackageReference Include="CsvHelper" Version="27.1.1"/>
+	</ItemGroup>
+</Project>
